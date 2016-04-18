@@ -28,8 +28,8 @@ public class DateUtility {
 
 		return getFormattedDate(tomorrow);
 	}
-	
-	public static Date parseStringToDate(String date) throws ParseException{
+
+	public static Date parseStringToDate(String date) throws ParseException {
 		return sdf.parse(date);
 	}
 
@@ -50,18 +50,13 @@ public class DateUtility {
 	public static boolean isDateInRange(String delivery_date, String start_date, String end_date)
 			throws ParseException {
 		Date startDate = null, endDate = null;
-		if (start_date != null)
-			startDate = parseStringToDate(start_date);
-		if (end_date != null)
-			endDate = parseStringToDate(end_date);
+
+		startDate = parseStringToDate(start_date);
+
+		endDate = parseStringToDate(end_date);
 
 		Date deliveryDate = parseStringToDate(delivery_date);
 
-		if (start_date != null && end_date == null)
-			return (deliveryDate.compareTo(startDate) >= 0);
-		else if (start_date == null && end_date != null)
-			return (deliveryDate.compareTo(endDate) <= 0);
-		else
-			return (deliveryDate.compareTo(startDate) >= 0 && deliveryDate.compareTo(endDate) <= 0);
+		return (deliveryDate.compareTo(startDate) >= 0 && deliveryDate.compareTo(endDate) <= 0);
 	}
 }

@@ -1,25 +1,28 @@
 package web.module.admin;
 
+import java.text.ParseException;
+
 import web.module.menu.MenuItem;
 import web.module.menu.MenuManager;
 import web.module.menu.MenuManager.InvalidItemDetailException;
 import web.module.menu.MenuManager.InvalidItemPriceForUpdateException;
 import web.module.order.Order;
 import web.module.order.OrderManager;
+import web.module.order.OrderManager.DeliveryDateIsInFutureException;
 import web.module.surcharge.Surcharge;
 
 public class AdminManager implements AdminBoundaryInterface {
-	
+
 	private AdminMenuBoundaryInterface menuManager = new MenuManager();
 	private AdminOrderBoundaryInterface orderManager = new OrderManager();
 
 	@Override
-	public void addItem(MenuItem item) throws InvalidItemDetailException{
+	public void addItem(MenuItem item) throws InvalidItemDetailException {
 		menuManager.addItem(item);
 	}
 
 	@Override
-	public void updateItem(int id, MenuItem item) throws InvalidItemPriceForUpdateException{
+	public void updateItem(int id, MenuItem item) throws InvalidItemPriceForUpdateException {
 		menuManager.updateItem(id, item);
 	}
 
@@ -44,7 +47,7 @@ public class AdminManager implements AdminBoundaryInterface {
 	}
 
 	@Override
-	public void updateDeliveryStatus(int oid) {
+	public void updateDeliveryStatus(int oid) throws ParseException, DeliveryDateIsInFutureException {
 		orderManager.updateDeliveryStatus(oid);
 	}
 

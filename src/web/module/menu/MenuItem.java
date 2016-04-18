@@ -6,7 +6,7 @@ import java.util.List;
 import web.module.utility.DateUtility;
 import web.module.utility.UniqueIdGenerator;
 
-public class MenuItem{
+public class MenuItem {
 
 	private int id;
 	private String name;
@@ -15,9 +15,9 @@ public class MenuItem{
 	private List<Category> categories = new ArrayList<>();
 	private String created_date;
 	private String last_modified_date;
-	
+
 	public MenuItem() {
-		
+
 	}
 
 	public MenuItem(String name, double price_per_person, int minimum_order, List<Category> categories) {
@@ -27,13 +27,13 @@ public class MenuItem{
 		this.minimum_order = minimum_order;
 		this.categories = categories;
 	}
-	
-	public void init(){
+
+	public void init() {
 		id = UniqueIdGenerator.getUniqueItemID();
 		created_date = DateUtility.getFormattedDateToday();
 		last_modified_date = created_date;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -53,7 +53,7 @@ public class MenuItem{
 	public List<Category> getCategories() {
 		return categories;
 	}
-	
+
 	public String getCreated_date() {
 		return created_date;
 	}
@@ -87,5 +87,4 @@ public class MenuItem{
 		last_modified_date = DateUtility.getFormattedDateToday();
 	}
 
-	
 }

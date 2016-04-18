@@ -6,11 +6,11 @@ public class Report {
 	private String name;
 	private String start_date;
 	private String end_date;
-	
-	public Report(){
-		
+
+	public Report() {
+
 	}
-	
+
 	public Report(int id, String name) {
 		this.id = id;
 		this.name = name;
@@ -31,7 +31,7 @@ public class Report {
 	public String getEnd_date() {
 		return end_date;
 	}
-	
+
 	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}

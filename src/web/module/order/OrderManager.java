@@ -12,37 +12,42 @@ import web.module.report.ReportOrderBoundaryInterface;
 import web.module.report.ReportRevenueBoundaryInterface;
 import web.module.report.Revenue;
 
-public class OrderManager implements OrderBoundaryInterface, AdminOrderBoundaryInterface, ReportOrderBoundaryInterface, ReportRevenueBoundaryInterface {
-	
+public class OrderManager implements OrderBoundaryInterface, AdminOrderBoundaryInterface, ReportOrderBoundaryInterface,
+		ReportRevenueBoundaryInterface {
+
 	private static List<Order> orderList = new ArrayList<>();
-	
+
 	private CustomerAliasInterface customerManager = new CustomerManager();
 
 	@Override
 	public void addOrder(Order order) throws ParseException {
-		if(order.isOrderDetailValid()){
+		if (!order.isOrderDateValid()) {
+			throw new OrderDateCanNotBeInPastException();
+		}
+		if (order.isOrderDetailValid()) {
 			order.init();
 			orderList.add(order);
 			customerManager.saveOrUpdateCustomer(order.getPersonal_info());
 			customerManager.saveOrderHistory(order);
-		}
-		else throw new InvalidOrderDetailException();
+		} else
+			throw new InvalidOrderDetailException();
 	}
 
 	@Override
 	public void cancelOrder(int id) throws ParseException {
 		Order o = getOrder(id);
-		if(o.isOrderCancellable()) {
+		if (o.isOrderCancellable()) {
 			o.cancelOrder();
 			orderList.set(orderList.indexOf(o), o);
-		}
-		else throw new OrderCanNotBeCancelledException();
+		} else
+			throw new OrderCanNotBeCancelledException();
 	}
 
 	@Override
 	public Order getOrder(int id) {
-		for(Order order : orderList){
-			if(order.matchesId(id)) return order;
+		for (Order order : orderList) {
+			if (order.matchesId(id))
+				return order;
 		}
 		return new NullOrder();
 	}
@@ -56,9 +61,10 @@ public class OrderManager implements OrderBoundaryInterface, AdminOrderBoundaryI
 	public List<Order> getAllOrder(String date) throws ParseException {
 		List<Order> filteredList = new ArrayList<>();
 		Iterator<Order> iterator = orderList.listIterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			Order o = iterator.next();
-			if(o.matachesDeliveryDate(date) && o.getStatus().equals(OrderStatus.OPEN)) filteredList.add(o);
+			if (o.matachesDeliveryDate(date) && o.getStatus().equals(OrderStatus.OPEN))
+				filteredList.add(o);
 		}
 		return filteredList;
 	}
@@ -67,33 +73,38 @@ public class OrderManager implements OrderBoundaryInterface, AdminOrderBoundaryI
 	public List<Order> getAllOrder(String startDate, String endDate) throws ParseException {
 		List<Order> filteredList = new ArrayList<>();
 		Iterator<Order> iterator = orderList.listIterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			Order o = iterator.next();
-			if(o.matachesDeliveryDate(startDate, endDate)) filteredList.add(o);
+			if (o.matachesDeliveryDate(startDate, endDate) && o.getStatus().equals(OrderStatus.OPEN))
+				filteredList.add(o);
 		}
 		return filteredList;
 	}
-	
+
 	@Override
-	public void updateDeliveryStatus(int oid) {
+	public void updateDeliveryStatus(int oid) throws ParseException {
 		Order o = getOrder(oid);
-		o.updateDeliveryStatus();
-		orderList.set(orderList.indexOf(o), o);
+		if (o.isOrdeValidToUpdateDeliveryStatus()) {
+			o.updateDeliveryStatus();
+			orderList.set(orderList.indexOf(o), o);
+		} else
+			throw new DeliveryDateIsInFutureException();
+
 	}
-	
-	public class InvalidOrderDetailException extends RuntimeException{
+
+	public class InvalidOrderDetailException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
-    }
+	}
 
 	@Override
 	public Revenue calculateRevenue(String startDate, String endDate) throws ParseException {
-		List<Order> orderList = getAllOrder(startDate, endDate);
+		List<Order> orderList = getAllOrderForDateRange(startDate, endDate);
 		return doReveueCalculation(orderList);
 	}
-	
-	@Override 
-	public Revenue calculateRevenue(){
-		List<Order> orderList = getAllOrder();
+
+	@Override
+	public Revenue calculateRevenue(String startDate) throws ParseException {
+		List<Order> orderList = getAllOrderForDate(startDate);
 		return doReveueCalculation(orderList);
 	}
 
@@ -104,42 +115,69 @@ public class OrderManager implements OrderBoundaryInterface, AdminOrderBoundaryI
 		int total_delivered_order = 0;
 		double total_food_revenue = 0;
 		double total_surcharge_revenue = 0;
-		
-		for(Order order : orderList){
-			if(order.getStatus().equals(OrderStatus.DELIVERED)){
+
+		for (Order order : orderList) {
+			if (order.getStatus().equals(OrderStatus.DELIVERED)) {
 				total_delivered_order++;
 				total_food_revenue += order.getAmount();
-			}
-			else if(order.getStatus().equals(OrderStatus.CANCELLED)){
+			} else if (order.getStatus().equals(OrderStatus.CANCELLED)) {
 				total_cancelled_order++;
 				total_food_revenue -= order.getAmount();
-			}
-			else {
-				
+			} else {
+
 				total_open_order++;
 				total_food_revenue += order.getAmount();
 			}
 			total_surcharge_revenue += order.getSurcharge();
 			total_order++;
 		}
-		
+
 		Revenue revenue = new Revenue();
-		
+
 		revenue.setOrders_placed(total_order);
 		revenue.setOrders_open(total_open_order);
 		revenue.setOrders_delivered(total_delivered_order);
 		revenue.setOrders_cancelled(total_cancelled_order);
 		revenue.setFood_revenue(total_food_revenue);
 		revenue.setSurcharge_revenue(total_surcharge_revenue);
-		
+
 		return revenue;
-		
+
 	}
-	
-	public class OrderCanNotBeCancelledException extends RuntimeException{
+
+	private List<Order> getAllOrderForDate(String date) throws ParseException {
+		List<Order> filteredList = new ArrayList<>();
+		Iterator<Order> iterator = orderList.listIterator();
+		while (iterator.hasNext()) {
+			Order o = iterator.next();
+			if (o.matachesDeliveryDate(date))
+				filteredList.add(o);
+		}
+		return filteredList;
+	}
+
+	private List<Order> getAllOrderForDateRange(String startDate, String endDate) throws ParseException {
+		List<Order> filteredList = new ArrayList<>();
+		Iterator<Order> iterator = orderList.listIterator();
+		while (iterator.hasNext()) {
+			Order o = iterator.next();
+			if (o.matachesDeliveryDate(startDate, endDate))
+				filteredList.add(o);
+		}
+		return filteredList;
+	}
+
+	public class OrderCanNotBeCancelledException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
-    }
+	}
 
+	public class OrderDateCanNotBeInPastException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+	}
 
-	
+	public class DeliveryDateIsInFutureException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+
+	}
+
 }

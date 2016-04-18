@@ -9,14 +9,14 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 import web.module.order.Order;
 
-public class ExtendedOrderSerializer extends JsonSerializer<Order>{
-	
+public class ExtendedOrderSerializer extends JsonSerializer<Order> {
+
 	@Override
 	public void serialize(Order order, JsonGenerator jgen, SerializerProvider provider)
 			throws IOException, JsonProcessingException {
-		
+
 		jgen.writeStartObject();
-		
+
 		jgen.writeNumberField("id", order.getId());
 		jgen.writeNumberField("amount", order.getAmount());
 		jgen.writeNumberField("surcharge", order.getSurcharge());
@@ -27,9 +27,9 @@ public class ExtendedOrderSerializer extends JsonSerializer<Order>{
 		jgen.writeStringField("delivery_address", order.getDelivery_address());
 		jgen.writeStringField("note", order.getNote());
 		jgen.writeObjectField("ordered_detail", order.getOrder_detail());
-	
+
 		jgen.writeEndObject();
-		
+
 	}
 
 }

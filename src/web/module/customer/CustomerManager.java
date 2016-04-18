@@ -10,13 +10,13 @@ import java.util.Map;
 import web.module.order.Order;
 
 public class CustomerManager implements CustomerBoundaryInterface, CustomerAliasInterface {
-	
+
 	private static Map<String, Customer> customerList = new HashMap<>();
 
 	@Override
 	public List<Customer> getAllCustomer() {
 		List<Customer> listCustomer = new ArrayList<>();
-		for(Map.Entry<String,Customer> entry : customerList.entrySet()){
+		for (Map.Entry<String, Customer> entry : customerList.entrySet()) {
 			Customer cstmr = entry.getValue();
 			listCustomer.add(cstmr);
 		}
@@ -24,7 +24,7 @@ public class CustomerManager implements CustomerBoundaryInterface, CustomerAlias
 			@Override
 			public int compare(Customer c1, Customer c2) {
 				return c1.getId() - c2.getId();
-				
+
 			}
 		});
 		return listCustomer;
@@ -33,18 +33,20 @@ public class CustomerManager implements CustomerBoundaryInterface, CustomerAlias
 	@Override
 	public List<PersonalInfo> getAllCustomer(String query_string) {
 		List<PersonalInfo> listCustomer = new ArrayList<>();
-		for(Map.Entry<String,Customer> entry : customerList.entrySet()){
+		for (Map.Entry<String, Customer> entry : customerList.entrySet()) {
 			Customer cstmr = entry.getValue();
-			if(cstmr.matches(query_string))listCustomer.add(cstmr.getPersonal_info());
+			if (cstmr.matches(query_string))
+				listCustomer.add(cstmr.getPersonal_info());
 		}
 		return listCustomer;
 	}
 
 	@Override
 	public Customer getCustomer(int id) {
-		for(Map.Entry<String,Customer> entry : customerList.entrySet()){
+		for (Map.Entry<String, Customer> entry : customerList.entrySet()) {
 			Customer cstmr = entry.getValue();
-			if(cstmr.getId() == id) return cstmr;
+			if (cstmr.getId() == id)
+				return cstmr;
 		}
 		return new NullCustomer();
 	}
@@ -52,17 +54,16 @@ public class CustomerManager implements CustomerBoundaryInterface, CustomerAlias
 	@Override
 	public void saveOrUpdateCustomer(PersonalInfo personal_info) {
 		Customer cstmr;
-		if(contains(personal_info.getEmail())){
-			
+		if (contains(personal_info.getEmail())) {
+
 			cstmr = getCustomer(personal_info.getEmail());
-			
-			if(!cstmr.isAliasMatches() && !cstmr.getPersonal_info().equals(personal_info)){
-				
-				cstmr.addAlias(new Alias(cstmr.getPersonal_info().getName(),cstmr.getPersonal_info().getPhone()));
+
+			if (!cstmr.isAliasMatches() && !cstmr.getPersonal_info().equals(personal_info)) {
+
+				cstmr.addAlias(new Alias(cstmr.getPersonal_info().getName(), cstmr.getPersonal_info().getPhone()));
 				cstmr.removeAnyDuplicateAlias(personal_info);
 			}
-		}
-		else{
+		} else {
 			cstmr = new Customer();
 		}
 		cstmr.setPersonal_info(personal_info);
@@ -74,8 +75,8 @@ public class CustomerManager implements CustomerBoundaryInterface, CustomerAlias
 		Customer cstmr = getCustomer(order.getPersonal_info().getEmail());
 		cstmr.addOrder(order);
 	}
-	
-	private boolean contains(String email){
+
+	private boolean contains(String email) {
 		return customerList.containsKey(email);
 	}
 

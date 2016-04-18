@@ -1,8 +1,8 @@
 package web.module.customer;
 
-public class NullCustomer extends Customer{
+public class NullCustomer extends Customer {
 	@Override
-	public boolean isNil(){
+	public boolean isNil() {
 		return true;
 	}
 }

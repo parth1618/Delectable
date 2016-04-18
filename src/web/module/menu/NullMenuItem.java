@@ -1,8 +1,8 @@
 package web.module.menu;
 
-public class NullMenuItem extends MenuItem{
+public class NullMenuItem extends MenuItem {
 	@Override
-	public boolean isNil(){
+	public boolean isNil() {
 		return true;
 	}
 }
