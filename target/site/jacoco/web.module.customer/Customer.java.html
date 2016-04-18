@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delectable</a> &gt; <a href="index.source.html" class="el_package">web.module.customer</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">package web.module.customer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import web.module.order.Order;
+import web.module.utility.UniqueIdGenerator;
+
+public class Customer {
+	
+	private int id;
+	private PersonalInfo personal_info;
+<span class="fc" id="L14">	private List&lt;Alias&gt; known_alias = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L15">	private List&lt;Order&gt; order_history = new ArrayList&lt;&gt;();</span>
+	
+<span class="fc" id="L17">	public Customer() {</span>
+<span class="fc" id="L18">		id = UniqueIdGenerator.getUniqueCustomerID();</span>
+<span class="fc" id="L19">	}</span>
+
+	public int getId() {
+<span class="fc" id="L22">		return id;</span>
+	}
+	
+	public void setPersonal_info(PersonalInfo personal_info) {
+<span class="fc" id="L26">		this.personal_info = personal_info;</span>
+<span class="fc" id="L27">	}</span>
+
+	public PersonalInfo getPersonal_info() {
+<span class="fc" id="L30">		return personal_info;</span>
+	}
+
+	public List&lt;Alias&gt; getKnown_alias() {
+<span class="fc" id="L34">		return known_alias;</span>
+	}
+
+	public List&lt;Order&gt; getOrder_history() {
+<span class="fc" id="L38">		return order_history;</span>
+	}
+	
+	public void addOrder(Order order){
+<span class="fc" id="L42">		order_history.add(order);</span>
+<span class="fc" id="L43">	}</span>
+	
+	public void addAlias(Alias alias){
+<span class="fc" id="L46">		known_alias.add(alias);</span>
+<span class="fc" id="L47">	}</span>
+	
+	public boolean isNil(){
+<span class="fc" id="L50">		return false;</span>
+	}
+
+	public boolean matches(String query_string) {
+<span class="fc" id="L54">		Pattern pattern = Pattern.compile(query_string, Pattern.CASE_INSENSITIVE);</span>
+<span class="fc" id="L55">		return pattern.matcher(getObjectString()).find();</span>
+	}
+	
+	public boolean isAliasMatches(){
+<span class="fc" id="L59">		Alias al = new Alias(personal_info.getName(), personal_info.getPhone());</span>
+<span class="fc" id="L60">		return known_alias.contains(al);</span>
+	}
+	
+	public void removeAnyDuplicateAlias(PersonalInfo person_Info){
+<span class="fc" id="L64">		List&lt;Alias&gt; aliasToRemove = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">		for(Alias a : known_alias){</span>
+<span class="pc bpc" id="L66" title="1 of 4 branches missed.">			if(a.getName().equals(person_Info.getName()) &amp;&amp; a.getPhone().equals(person_Info.getPhone()))aliasToRemove.add(a);</span>
+<span class="fc" id="L67">		}</span>
+<span class="fc" id="L68">		known_alias.removeAll(aliasToRemove);</span>
+<span class="fc" id="L69">	}</span>
+	
+	private String getObjectString(){
+<span class="fc" id="L72">		String matchString = personal_info.getEmail() + &quot; &quot; + personal_info.getName() + &quot; &quot; + personal_info.getPhone();</span>
+		
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		for(Alias al : getKnown_alias()){</span>
+<span class="fc" id="L75">			matchString += &quot; &quot; + al.getName();</span>
+<span class="fc" id="L76">			matchString += &quot; &quot; + al.getPhone();</span>
+<span class="fc" id="L77">		}</span>
+<span class="fc" id="L78">		return matchString;</span>
+	}
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

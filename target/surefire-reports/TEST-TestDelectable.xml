@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestDelectable" time="0.788" tests="39" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_20\jre\bin"/>
+    <property name="java.vm.version" value="25.20-b23"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Parth\Documents\workspace\Delectable"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="C:\Users\Parth\Documents\workspace\Delectable"/>
+    <property name="java.runtime.version" value="1.8.0_20-b26"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_20\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\Parth\AppData\Local\Temp\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 8.1"/>
+    <property name="classworlds.conf" value="C:\Users\Parth\Documents\workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf7696464931504739734.tmp"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_20\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk1.8.0_20/jre/bin/server;C:/Program Files/Java/jdk1.8.0_20/jre/bin;C:/Program Files/Java/jdk1.8.0_20/jre/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Common Files\lenovo\easyplussdk\bin;C:\ProgramData\Lenovo\ReadyApps;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;C:\Python27;C:\HashiCorp\Vagrant\bin;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Java\jdk1.8.0_20\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.8.0_20\bin;C:\Ant\bin;E:\Software\apache-maven-3.3.9\bin;C:\Program Files\MongoDB\Server\3.2\bin;C:\Users\Parth\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;;C:\Users\Parth\Desktop;;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="6.3"/>
+    <property name="user.home" value="C:\Users\Parth"/>
+    <property name="user.timezone" value="America/Chicago"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="Parth"/>
+    <property name="java.class.path" value="/C:/Users/Parth/.p2/pool/plugins/org.eclipse.m2e.maven.runtime_1.6.2.20150902-0001/jars/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_20\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B clean test jacoco:report package"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_20"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_20\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_20\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_20\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_20\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="C:\Users\Parth\Documents\workspace\Delectable\EMBEDDED"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase name="test10_test_is_surcharge_set_should_be_false" classname="TestDelectable" time="0.008"/>
+  <testcase name="test11_test_menu_with_no_pre_value" classname="TestDelectable" time="0"/>
+  <testcase name="test12_test_menu_with_three_added_item" classname="TestDelectable" time="0.039"/>
+  <testcase name="test13_test_menu_get_item_by_id_isNil" classname="TestDelectable" time="0"/>
+  <testcase name="test14_test_add_menu_item_with_invalid_price" classname="TestDelectable" time="0"/>
+  <testcase name="test15_test_add_menu_item_with_invalid_minimum_count" classname="TestDelectable" time="0.001"/>
+  <testcase name="test16_test_add_menu_item_with_invalid_price_and_minimum_person" classname="TestDelectable" time="0.001"/>
+  <testcase name="test17_update_menu_item_with_price" classname="TestDelectable" time="0"/>
+  <testcase name="test18_update_menu_item_with_invalid_price" classname="TestDelectable" time="0"/>
+  <testcase name="test19_test_surcharge_before_set" classname="TestDelectable" time="0"/>
+  <testcase name="test20_test_add_surcharge" classname="TestDelectable" time="0"/>
+  <testcase name="test21_test_order_with_no_pre_value" classname="TestDelectable" time="0.002"/>
+  <testcase name="test22_test_customer_with_no_pre_value" classname="TestDelectable" time="0.007"/>
+  <testcase name="test23_test_order_with_six_added_order" classname="TestDelectable" time="0.009"/>
+  <testcase name="test24_test_order_get_order_by_id_isNil" classname="TestDelectable" time="0"/>
+  <testcase name="test25_test_order_with_invalid_order_detail_invalid_item_id" classname="TestDelectable" time="0"/>
+  <testcase name="test26_test_order_with_invalid_order_detail_invalid_item_count" classname="TestDelectable" time="0.001"/>
+  <testcase name="test27_test_order_with_invalid_order_detail_invalid_item_id_and_count" classname="TestDelectable" time="0"/>
+  <testcase name="test28_test_customer_with_added_customer" classname="TestDelectable" time="0"/>
+  <testcase name="test29_test_customer_get_customer_by_id_isNil" classname="TestDelectable" time="0"/>
+  <testcase name="test30_test_customer_known_alias" classname="TestDelectable" time="0.001"/>
+  <testcase name="test31_test_customer_get_all_customer_with_query_string" classname="TestDelectable" time="0.001"/>
+  <testcase name="test32_order_cancel_order" classname="TestDelectable" time="0"/>
+  <testcase name="test33_admin_change_order_delivery_status" classname="TestDelectable" time="0.001"/>
+  <testcase name="test34_customer_get_customer_order_history" classname="TestDelectable" time="0"/>
+  <testcase name="test35_admin_check_order_isNil" classname="TestDelectable" time="0"/>
+  <testcase name="test36_get_all_order_by_date_query_string" classname="TestDelectable" time="0.004"/>
+  <testcase name="test37_report_get_four_report_list" classname="TestDelectable" time="0.001"/>
+  <testcase name="test38_report_check_for_null_report" classname="TestDelectable" time="0"/>
+  <testcase name="test39_report_get_report_801_today_with_and_without_query_string" classname="TestDelectable" time="0.01"/>
+  <testcase name="test40_report_get_report_802_tomorrow_with_and_without_query_string" classname="TestDelectable" time="0.008"/>
+  <testcase name="test41_report_get_report_804_delivery_with_and_without_query_string" classname="TestDelectable" time="0.045"/>
+  <testcase name="test42_report_get_report_803_revenue_with_and_without_query_string" classname="TestDelectable" time="0.036"/>
+  <testcase name="test43_test_order_getter_methods" classname="TestDelectable" time="0"/>
+  <testcase name="test44_test_report_name" classname="TestDelectable" time="0"/>
+  <testcase name="test45_test_menu_item_getter_methods" classname="TestDelectable" time="0"/>
+  <testcase name="test46_test_cancel_order_for_today" classname="TestDelectable" time="0"/>
+  <testcase name="test47_test_cateogry" classname="TestDelectable" time="0"/>
+  <testcase name="test48_create_personalInfo_orderDetail_with_blank_constructor" classname="TestDelectable" time="0"/>
+</testsuite>

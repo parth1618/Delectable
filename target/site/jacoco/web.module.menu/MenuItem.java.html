@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MenuItem.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delectable</a> &gt; <a href="index.source.html" class="el_package">web.module.menu</a> &gt; <span class="el_source">MenuItem.java</span></div><h1>MenuItem.java</h1><pre class="source lang-java linenums">package web.module.menu;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import web.module.utility.DateUtility;
+import web.module.utility.UniqueIdGenerator;
+
+public class MenuItem{
+
+	private int id;
+	private String name;
+	private double price_per_person;
+	private int minimum_order;
+<span class="fc" id="L15">	private List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
+	private String created_date;
+	private String last_modified_date;
+	
+<span class="fc" id="L19">	public MenuItem() {</span>
+		
+<span class="fc" id="L21">	}</span>
+
+	public MenuItem(String name, double price_per_person, int minimum_order, List&lt;Category&gt; categories) {
+<span class="fc" id="L24">		super();</span>
+<span class="fc" id="L25">		this.name = name;</span>
+<span class="fc" id="L26">		this.price_per_person = price_per_person;</span>
+<span class="fc" id="L27">		this.minimum_order = minimum_order;</span>
+<span class="fc" id="L28">		this.categories = categories;</span>
+<span class="fc" id="L29">	}</span>
+	
+	public void init(){
+<span class="fc" id="L32">		id = UniqueIdGenerator.getUniqueItemID();</span>
+<span class="fc" id="L33">		created_date = DateUtility.getFormattedDateToday();</span>
+<span class="fc" id="L34">		last_modified_date = created_date;</span>
+<span class="fc" id="L35">	}</span>
+	
+	public int getId() {
+<span class="fc" id="L38">		return id;</span>
+	}
+
+	public String getName() {
+<span class="fc" id="L42">		return name;</span>
+	}
+
+	public double getPrice_per_person() {
+<span class="fc" id="L46">		return price_per_person;</span>
+	}
+
+	public int getMinimum_order() {
+<span class="fc" id="L50">		return minimum_order;</span>
+	}
+
+	public List&lt;Category&gt; getCategories() {
+<span class="fc" id="L54">		return categories;</span>
+	}
+	
+	public String getCreated_date() {
+<span class="fc" id="L58">		return created_date;</span>
+	}
+
+	public String getLast_modified_date() {
+<span class="fc" id="L62">		return last_modified_date;</span>
+	}
+
+	public boolean isNil() {
+<span class="fc" id="L66">		return false;</span>
+	}
+
+	public boolean isItemDetailValid() {
+<span class="fc bfc" id="L70" title="All 4 branches covered.">		return (price_per_person &gt; 0 &amp;&amp; minimum_order &gt; 0);</span>
+	}
+
+	public boolean matchesId(int id) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		return (this.id == id);</span>
+	}
+
+	public boolean isPriceValid() {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		return (price_per_person &gt; 0);</span>
+	}
+
+	public boolean matchesMinimumOrder(int count) {
+<span class="fc bfc" id="L82" title="All 2 branches covered.">		return (count &gt;= minimum_order);</span>
+	}
+
+	public void updateItem(double price_per_person) {
+<span class="fc" id="L86">		this.price_per_person = price_per_person;</span>
+<span class="fc" id="L87">		last_modified_date = DateUtility.getFormattedDateToday();</span>
+<span class="fc" id="L88">	}</span>
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

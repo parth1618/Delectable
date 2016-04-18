@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ReportServiceController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Delectable</a> &gt; <a href="index.source.html" class="el_package">web.module.controller</a> &gt; <span class="el_source">ReportServiceController.java</span></div><h1>ReportServiceController.java</h1><pre class="source lang-java linenums">package web.module.controller;
+
+import java.io.IOException;
+import java.text.ParseException;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+
+import web.module.report.OrderDeliveryReport;
+import web.module.report.Report;
+import web.module.report.ReportBoundaryInterface;
+import web.module.report.ReportList;
+import web.module.report.ReportManager;
+import web.module.report.RevenueReport;
+import web.module.serializer.DeliveryReportSerializer;
+import web.module.serializer.RevenueReportSerializer;
+import web.module.serializer.SimpleReportListSerializer;
+import web.module.utility.JSONPrettyPrinterInterface;
+
+@Path(&quot;/report&quot;)
+<span class="nc" id="L30">public class ReportServiceController{</span>
+	
+<span class="nc" id="L32">private ReportBoundaryInterface rm = new ReportManager();</span>
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReportList() throws JsonGenerationException, JsonMappingException, IOException{
+		
+<span class="nc" id="L38">		String objectString = JSONPrettyPrinterInterface.printPrettyJSONCustomSerializer(&quot;ReportModule&quot;, Report.class, </span>
+<span class="nc" id="L39">				new SimpleReportListSerializer(), rm.getReportList());</span>
+		
+<span class="nc" id="L41">		return Response.status(Response.Status.OK).entity(objectString).build();</span>
+	}
+	
+	@GET
+	@Path(&quot;/{rid}&quot;)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReportById(@PathParam(&quot;rid&quot;) int rid, @QueryParam(&quot;start_date&quot;) String startDate, 
+			@QueryParam(&quot;end_date&quot;) String endDate) throws JsonGenerationException, JsonMappingException, IOException, ParseException{
+		
+<span class="nc" id="L50">		String  objectString = &quot;&quot;;</span>
+<span class="nc" id="L51">		Status response_status = Response.Status.OK;</span>
+		
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		if(rm.getReport(rid).isNil()){</span>
+<span class="nc" id="L54">			objectString = &quot;Entity not found for ID: &quot; + rid;</span>
+<span class="nc" id="L55">			response_status = Response.Status.NOT_FOUND;</span>
+		}
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		else if(rid == ReportList.RID_803){</span>
+<span class="nc" id="L58">			objectString = JSONPrettyPrinterInterface.printPrettyJSONCustomSerializer(&quot;RevenueReportModule&quot;, RevenueReport.class, </span>
+<span class="nc" id="L59">					new RevenueReportSerializer(), rm.generateReport(rid, startDate, endDate));</span>
+		}
+		else{
+<span class="nc" id="L62">			objectString = JSONPrettyPrinterInterface.printPrettyJSONCustomSerializer(&quot;DeliveryReportModule&quot;, OrderDeliveryReport.class, </span>
+<span class="nc" id="L63">					new DeliveryReportSerializer(), rm.generateReport(rid, startDate, endDate));</span>
+		}
+<span class="nc" id="L65">		return Response.status(response_status).entity(objectString).build();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
