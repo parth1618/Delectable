@@ -73,13 +73,6 @@ public class TestDelectable {
 		assertTrue(adminManager.getItem(invalid_id).isNil());
 	}
 
-	// @Test(expected = MenuManager.InvalidItemDetailException.class)
-	// public void test14_test_add_menu_item_with_invalid_price(){
-	//
-	// MenuItem invalid_item = new MenuItem("Burger", 0, 1, catList_2);
-	// adminManager.addItem(invalid_item);
-	// }
-
 	@Test
 	public void test14_test_add_menu_item_with_invalid_price() {
 
@@ -516,7 +509,7 @@ public class TestDelectable {
 		List<OrderDetail> od_list = new ArrayList<>();
 		od_list.add(invalid_od);
 
-		Order o = new Order("20160418", "10 West 31st ST, Chicago IL 60616", p1, "Room SB-214", od_list);
+		Order o = new Order(DateUtility.getFormattedDateToday(), "10 West 31st ST, Chicago IL 60616", p1, "Room SB-214", od_list);
 		assertTrue(o.isOrderDateValid());
 	}
 
