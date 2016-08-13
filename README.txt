@@ -2,8 +2,8 @@
 
 The main purpose of this project is to practice object-oriented analysis, design and programming and build an application runs on a server and that various clients can access it through a REST interface.
 
-Project description: project.pdf
-API Description: api.pdf
+Project description: Spring2016_ProjectDesciption.pdf
+API Description: Spring2016_ProjectAPI.pdf
 
 --------------------------------------
 Minimum Requirement
